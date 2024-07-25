@@ -24,6 +24,14 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    - name: Install dotnet-format tool
+      run: dotnet tool install -g dotnet-format
+
+    - name: Run dotnet format
+      run: dotnet fotmat ./dotnet-webapp/dotnet-webapp.csproj
+      env:
+        PATH: ${{ github.env.PATH }}:/home/runner/.dotnet/tools
+
     - name: Build the project
       run: dotnet build --configuration Release
 
