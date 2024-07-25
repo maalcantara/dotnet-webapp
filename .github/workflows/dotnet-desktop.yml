@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,11 +38,6 @@ jobs:
       run: dotnet build --configuration Release
 
     # SonarLint Analysis
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env: 
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@v2.2.0
       env:
@@ -48,6 +46,7 @@ jobs:
         args: >
           -Dsonar.projectKey=maalcantara_dotnet-webapp
           -Dsonar.organization=maalcantara
+          -X
         projectBaseDir: .
 
     - name: Publish the project
