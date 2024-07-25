@@ -26,11 +26,14 @@ jobs:
 
     - name: Install dotnet-format tool
       run: dotnet tool install -g dotnet-format
-
+  
+    - name: Add .NET tools to PATH
+      run: echo "::add-path::/home/runner/.dotnet/tools"
+  
     - name: Run dotnet format
-      run: dotnet fotmat ./dotnet-webapp/dotnet-webapp.csproj
+      run: dotnet format ./dotnet-webapp/dotnet-webapp.csproj --check
       env:
-        PATH: ${{ github.env.PATH }}:/home/runner/.dotnet/tools
+        PATH: /home/runner/.dotnet/tools:${{ github.env.PATH }}
 
     - name: Build the project
       run: dotnet build --configuration Release
