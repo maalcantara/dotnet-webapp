@@ -24,6 +24,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    # Lint for C# -> dotnet format
     - name: Install dotnet-format tool
       run: dotnet tool install -g dotnet-format
 
@@ -32,6 +33,17 @@ jobs:
 
     - name: Build the project
       run: dotnet build --configuration Release
+
+    # SonarLint Analysis
+    - name: Analyze with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@v2.2.0
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=maalcantara_dotnet-webapp
+          -Dsonar.organization=maalcantara
+        projectBaseDir: .
 
     - name: Publish the project
       run: dotnet publish --configuration Release --output ./publish
