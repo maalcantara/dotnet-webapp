@@ -14,5 +14,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag dotnetapp-image:$(date +%s)
+      run: docker build . --file Dockerfile --tag dotnetappantigo-image:latest
+
+    - name: Save Docker image to a tar file
+      run: docker save -o dotnetappantigo-image.tar dotnetappantigo-image:latest
+
+    - name: Upload Docker image artifact
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        name: docker-image
+        path: dotnetappantigo-image.tar
+        if-no-files-found: error
+        retention-days: 30
+        compression-level: 6
+        overwrite: true
