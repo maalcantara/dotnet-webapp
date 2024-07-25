@@ -24,16 +24,13 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-#    - name: Install dotnet-format tool
-#      run: dotnet tool install -g dotnet-format
+    - name: Install dotnet-format tool
+      run: dotnet tool install -g dotnet-format
 
-#    - name: Add .NET tools to PATH
-#      run: echo "::add-path::/home/runner/.dotnet/tools"
-
-#    - name: Run dotnet format
-#      run: dotnet format ./dotnet-webapp/dotnet-webapp.csproj --check
-#      env:
-#        PATH: /home/runner/.dotnet/tools:${{ github.env.PATH }}
+    - name: Run dotnet format
+      run: dotnet format /home/runner/work/dotnet-webapp/dotnet-webapp.csproj
+      env:
+        PATH: /home/runner/.dotnet/tools:${{ github.env.PATH }}
 
     - name: Build the project
       run: dotnet build --configuration Release
