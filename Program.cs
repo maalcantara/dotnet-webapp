@@ -22,4 +22,5 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.Run();
+// Use RunAsync instead of Run
+await app.RunAsync();
