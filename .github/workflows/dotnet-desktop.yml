@@ -65,11 +65,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Login to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: acrdesafiodevops.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag dotnetappantigo-image:latest
+      run: docker build ./dotnet-app --file ./dotnet-app/Dockerfile --tag acrdesafiodevops.azurecr.io/dotnetappantigo-image:latest
 
     - name: Save Docker image to a tar file
-      run: docker save -o dotnetappantigo-image.tar dotnetappantigo-image:latest
+      run: docker push acrdesafiodevops.azurecr.io/dotnetappantigo-image:latest
 
     - name: Upload Docker image artifact
       uses: actions/upload-artifact@v4.3.4
