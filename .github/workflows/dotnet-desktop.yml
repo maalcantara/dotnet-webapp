@@ -34,9 +34,6 @@ jobs:
     - name: Run dotnet format
       run: dotnet format 
 
-    - name: Build the project
-      run: dotnet build --configuration Release
-
     # SonarLint Analysis
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@v2.2.0
@@ -48,6 +45,9 @@ jobs:
           -Dsonar.organization=maalcantara
           -X
         projectBaseDir: .
+
+    - name: Build the project
+      run: dotnet build --configuration Release
 
     - name: Publish the project
       run: dotnet publish --configuration Release --output ./publish
