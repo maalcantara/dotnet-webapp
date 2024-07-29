@@ -73,10 +73,10 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build the Docker image
-      run: docker build -t ${{ secrets.ACR_LOGIN_SERVER}}/dotnetappantigo:latest
+      run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/dotnetappantigo:latest .
 
     - name: Save Docker image to a tar file
-      run: docker save ${{ secrets.ACR_LOGIN_SERVER }}/dotnetappantigo-image:latest -o dotnetappantigo.tar
+      run: docker save ${{ secrets.ACR_LOGIN_SERVER }}/dotnetappantigo:latest -o dotnetappantigo.tar
 
     - name: Upload Docker image artifact
       uses: actions/upload-artifact@v2
